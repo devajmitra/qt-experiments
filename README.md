@@ -15,3 +15,6 @@ You can then create the GUI for user interaction and call the functions of bank 
 as arguments.
 
 This way the GUI and the core functionality remain separate and multiple people can work separately on different components of the project parallely.
+
+PS : The account number(as of now) starts from 1 , and every new account gets the next number serially. 
+Also, you'll need to delete(also as of now) the 'accounts' file(created at run time) every time you run the program since the account number count will start from 1 again.

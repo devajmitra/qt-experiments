@@ -14,14 +14,15 @@ DetailsDialog::DetailsDialog(const QString &title, QWidget *parent) :
     mnameLabel = new QLabel(tr("Middle Name:"));
     lnameLabel = new QLabel(tr("Last Name:"));
     mobileLabel = new QLabel(tr("Mobile Number:"));
-    //emailLabel = new QLabel(tr("Email: "));
+    emailLabel = new QLabel(tr("Email: "));
 
+    //accountNum = new QLabel(" "+accCo);
     fnameEdit = new QLineEdit;
     mnameEdit = new QLineEdit;
     lnameEdit = new QLineEdit;
     mobileEdit = new QLineEdit;
     addressEdit = new QTextEdit;
-    //emailEdit = new QLineEdit;
+    emailEdit = new QLineEdit;
 
     buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok
                                      | QDialogButtonBox::Cancel);
@@ -40,10 +41,11 @@ DetailsDialog::DetailsDialog(const QString &title, QWidget *parent) :
     mainLayout->addWidget(addressEdit, 2, 1, 3, 3);
     mainLayout->addWidget(mobileLabel, 5, 0);
     mainLayout->addWidget(mobileEdit, 5, 1, 1, 2);
-    //mainLayout->addWidget(emailLabel, 6, 0);
-    //mainLayout->addWidget(emailEdit, 6, 1, 1, 4);
+    mainLayout->addWidget(emailLabel, 6, 0);
+    mainLayout->addWidget(emailEdit, 6, 1, 1, 4);
 
     mainLayout->addWidget(buttonBox, 7, 0, 1, 5);
+
     setLayout(mainLayout);
 
     setWindowTitle(title);
@@ -72,10 +74,10 @@ QString DetailsDialog::getMobile() const
     return mobileEdit->text();
 }
 
-/*QString DetailsDialog::getEmail() const
+QString DetailsDialog::getEmail() const
 {
     return emailEdit->text();
-}*/
+}
 
 DetailsDialog::~DetailsDialog()
 {
@@ -85,7 +87,7 @@ DetailsDialog::~DetailsDialog()
 void DetailsDialog::verify()
 {
     if (!fnameEdit->text().isEmpty() && !mnameEdit->text().isEmpty() && !lnameEdit->text().isEmpty() &&
-            !addressEdit->toPlainText().isEmpty() && !mobileEdit->text().isEmpty() /*&& !emailEdit->text().isEmpty() */) {
+            !addressEdit->toPlainText().isEmpty() && !mobileEdit->text().isEmpty() && !emailEdit->text().isEmpty() ) {
         accept();
         return;
     }

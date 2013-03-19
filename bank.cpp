@@ -1,25 +1,28 @@
 #include "bank.h"
 #include<cstring>
 #include<iostream>
+#include<fstream>
 
 bank :: bank() : in ("accounts", ios::binary | ios::in ) {
-
+    //fstream in("accounts");
+    accCount = 1;
 }
 
 bank :: bank(int key, char * fname, char * mname, char * lname, char * address, char * acc_no, char * mobile_no, long balance) : in ("accounts", ios::binary | ios::in )	{
+    accCount = 1;
 }
 
-void bank :: createAccount(const int key, const char * fname, const char * mname, const char * lname, const char * address,
-                           const char * acc_no, const char * mobile_no,/* const char *email,*/ long balance) {
+void bank :: createAccount(/*const int key,*/ const char * fname, const char * mname, const char * lname, const char * address,
+                           const char * acc_no, const char * mobile_no, const char *email, long balance) {
     strcpy(acc.fname, fname);
     strcpy(acc.mname, mname);
     strcpy(acc.lname, lname);
     strcpy(acc.address, address);
     strcpy(acc.acc_no, acc_no);
     strcpy(acc.mobile_no, mobile_no);
-    /*strcpy(acc.email, email);*/
+    strcpy(acc.email, email);
     acc.balance = balance;
-    acc.key = key;
+    acc.key = accCount++;
     acc.rec_state = 1;
 
     fstream out ("accounts", ios::binary | ios::out | ios::app);

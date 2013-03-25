@@ -15,11 +15,14 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     bank.cpp \
-    detailsdialog.cpp
+    detailsdialog.cpp \
+    displaydialog.cpp
 
 HEADERS  += mainwindow.h \
     bank.h \
-    detailsdialog.h
+    detailsdialog.h \
+    displaydialog.h
 
 FORMS    += mainwindow.ui \
-    detailsdialog.ui
+    detailsdialog.ui \
+    displaydialog.ui

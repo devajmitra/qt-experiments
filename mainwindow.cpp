@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "detailsdialog.h"
+#include "displaydialog.h"
 #include<QDialog>
 #include<QDebug>
 #include<cstring>
@@ -74,8 +75,11 @@ void MainWindow::openDialog()
 
 void MainWindow::searchAccount(){
     account_info *found = b.searchAccount(searchEdit->text().toInt());
-    if(found)
-        qDebug() << found->fname<<" "<<found->lname << endl;
+    if(found) {
+        DisplayDialog dialog(tr("View/Delete/Update"), found);
+        dialog.exec();
+        //qDebug() << found->fname<<" "<<found->lname << endl;
+    }
     else
         QMessageBox::warning(this, tr("Not found"), "Account does not exist!" );
 

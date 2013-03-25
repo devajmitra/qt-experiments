@@ -5,7 +5,7 @@
 
 bank :: bank() : in ("accounts", ios::binary | ios::in ) {
     //fstream in("accounts");
-    accCount = 1;
+    accCount = 0;
 }
 
 bank :: bank(int key, char * fname, char * mname, char * lname, char * address, char * acc_no, char * mobile_no, long balance) : in ("accounts", ios::binary | ios::in )	{
@@ -22,7 +22,7 @@ void bank :: createAccount(/*const int key,*/ const char * fname, const char * m
     strcpy(acc.mobile_no, mobile_no);
     strcpy(acc.email, email);
     acc.balance = balance;
-    acc.key = accCount++;
+    acc.key = ++accCount;
     acc.rec_state = 1;
 
     fstream out ("accounts", ios::binary | ios::out | ios::app);
@@ -42,6 +42,15 @@ account_info * bank :: searchAccount(int key) {
     }
         searchFile.close();
     return NULL;
+}
+
+void bank :: deleteAccount(account_info *record) {
+    int pos = record->key - 1;
+    record->rec_state = 0;
+    fstream out("accounts", ios::binary | ios::out);
+    out.seekp(pos*sizeof(account_info), ios::beg);
+    out.write((char *)record, sizeof(account_info));
+    out.close();
 }
 
 void bank :: printToFile() {

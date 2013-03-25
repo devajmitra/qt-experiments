@@ -1,6 +1,7 @@
 #include "displaydialog.h"
 #include "ui_displaydialog.h"
 #include<QTextEdit>
+#include<QPushButton>
 #include "bank.h"
 
 DisplayDialog::DisplayDialog(const QString &title, const account_info *record, QWidget *parent) :
@@ -25,12 +26,28 @@ DisplayDialog::DisplayDialog(const QString &title, const account_info *record, Q
     addressEdit = new QTextEdit(record->address);
     emailEdit = new QLineEdit(record->email);
 
-    fnameEdit->setReadOnly(true);
-    mnameEdit->setReadOnly(true);
-    lnameEdit->setReadOnly(true);
-    mobileEdit->setReadOnly(true);
-    addressEdit->setReadOnly(true);
-    emailEdit->setReadOnly(true);
+    fnameEdit->setDisabled(true);
+    mnameEdit->setDisabled(true);
+    lnameEdit->setDisabled(true);
+    mobileEdit->setDisabled(true);
+    addressEdit->setDisabled(true);
+    emailEdit->setDisabled(true);
+
+    QPushButton *done = new QPushButton(tr("Done"));
+    QPushButton *edit = new QPushButton(tr("Edit"));
+    QPushButton *update = new QPushButton(tr("Update"));
+    QPushButton *remove = new QPushButton(tr("Delete"));
+
+    connect(done, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(edit, SIGNAL(clicked()), this, SLOT(setEditable()));
+    connect(remove, SIGNAL(clicked()), this, SLOT(reject()));
+
+    buttonBox = new QDialogButtonBox(Qt::Vertical);
+
+    buttonBox->addButton(edit, QDialogButtonBox::ActionRole);
+    buttonBox->addButton(done, QDialogButtonBox::AcceptRole);
+    buttonBox->addButton(update, QDialogButtonBox::ActionRole);
+    buttonBox->addButton(remove, QDialogButtonBox::ActionRole);
 
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->addWidget(fnameLabel, 0, 0);
@@ -44,9 +61,19 @@ DisplayDialog::DisplayDialog(const QString &title, const account_info *record, Q
     mainLayout->addWidget(mobileLabel, 5, 0);
     mainLayout->addWidget(mobileEdit, 5, 1, 1, 2);
     mainLayout->addWidget(emailLabel, 6, 0);
-    mainLayout->addWidget(emailEdit, 6, 1, 1, 4);
+    mainLayout->addWidget(emailEdit, 6, 1, 1, 3);
+    mainLayout->addWidget(buttonBox, 0, 5);
 
     setLayout(mainLayout);
+}
+
+void DisplayDialog :: setEditable() {
+    fnameEdit->setDisabled(false);
+    mnameEdit->setDisabled(false);
+    lnameEdit->setDisabled(false);
+    mobileEdit->setDisabled(false);
+    addressEdit->setDisabled(false);
+    emailEdit->setDisabled(false);
 }
 
 DisplayDialog::~DisplayDialog()

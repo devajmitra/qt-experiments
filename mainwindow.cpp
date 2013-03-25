@@ -60,24 +60,19 @@ void MainWindow::openDialog()
         strcpy(address, dialog.getAddress().toStdString().c_str());
         strcpy(mobile, dialog.getMobile().toStdString().c_str());
         strcpy(email, dialog.getEmail().toStdString().c_str());
-        //const char *email = dialog.getEmail().toStdString().c_str();
 
         b.createAccount(/*count++, */fName, mName,lName, address,"123", mobile, email, 3000);
 
-        /*
-                qDebug() << fName<<endl;
-                qDebug() << mName<<endl;
-                qDebug() <<lName<<endl;
-                qDebug() <<address<<endl;
-                qDebug() << mobile<<endl;*/
     }
 }
 
 void MainWindow::searchAccount(){
     account_info *found = b.searchAccount(searchEdit->text().toInt());
     if(found) {
-        DisplayDialog dialog(tr("View/Delete/Update"), found);
-        dialog.exec();
+        DisplayDialog dialog(tr("View/Delete/Update"), found, this);
+        if(dialog.exec() == QDialog::Rejected) {
+            b.deleteAccount(found);
+        }
         //qDebug() << found->fname<<" "<<found->lname << endl;
     }
     else

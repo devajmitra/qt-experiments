@@ -17,6 +17,9 @@ public:
 
     explicit DisplayDialog(const QString &title, const account_info *record, QWidget *parent = 0);
     ~DisplayDialog();
+
+private slots:
+    void setEditable();
     
 private:
     Ui::DisplayDialog *ui;
@@ -34,6 +37,9 @@ private:
     QLineEdit *mobileEdit;
     QLineEdit *emailEdit;
     QTextEdit *addressEdit;
+
+    QDialogButtonBox *buttonBox;
+
 };
 
 #endif // DISPLAYDIALOG_H

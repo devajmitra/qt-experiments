@@ -9,7 +9,7 @@ bank :: bank() : in ("accounts", ios::binary | ios::in ) {
 }
 
 bank :: bank(int key, char * fname, char * mname, char * lname, char * address, char * acc_no, char * mobile_no, long balance) : in ("accounts", ios::binary | ios::in )	{
-    accCount = 1;
+    accCount = 0;
 }
 
 void bank :: createAccount(/*const int key,*/ const char * fname, const char * mname, const char * lname, const char * address,
@@ -47,7 +47,7 @@ account_info * bank :: searchAccount(int key) {
 void bank :: deleteAccount(account_info *record) {
     int pos = record->key - 1;
     record->rec_state = 0;
-    fstream out("accounts", ios::binary | ios::out);
+    fstream out("accounts", ios::binary | ios::out | ios::in);
     out.seekp(pos*sizeof(account_info), ios::beg);
     out.write((char *)record, sizeof(account_info));
     out.close();

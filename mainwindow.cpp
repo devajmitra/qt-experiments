@@ -67,7 +67,8 @@ void MainWindow::openDialog()
 }
 
 void MainWindow::searchAccount(){
-    account_info *found = b.searchAccount(searchEdit->text().toInt());
+    account_info *found = NULL;
+    found = b.searchAccount(searchEdit->text().toInt());
     if(found) {
         DisplayDialog dialog(tr("View/Delete/Update"), found, this);
         if(dialog.exec() == QDialog::Rejected) {

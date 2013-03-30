@@ -1,13 +1,15 @@
 #include "detailsdialog.h"
 #include "ui_detailsdialog.h"
 #include<QtWidgets>
-
+#include<QDebug>
 
 DetailsDialog::DetailsDialog(const QString &title, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DetailsDialog)
 {
+
     ui->setupUi(this);
+    //accnoLabel = new QLabel(tr("Account number: "));
     fnameLabel = new QLabel(tr("First Name:"));
     addressLabel = new QLabel(tr("Address:"));
     addressLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
@@ -16,7 +18,7 @@ DetailsDialog::DetailsDialog(const QString &title, QWidget *parent) :
     mobileLabel = new QLabel(tr("Mobile Number:"));
     emailLabel = new QLabel(tr("Email: "));
 
-    //accountNum = new QLabel(" "+accCo);
+    //accno = new QLabel(new QString(acc));
     fnameEdit = new QLineEdit;
     mnameEdit = new QLineEdit;
     lnameEdit = new QLineEdit;
@@ -43,8 +45,11 @@ DetailsDialog::DetailsDialog(const QString &title, QWidget *parent) :
     mainLayout->addWidget(mobileEdit, 5, 1, 1, 2);
     mainLayout->addWidget(emailLabel, 6, 0);
     mainLayout->addWidget(emailEdit, 6, 1, 1, 4);
-
+    //mainLayout->addWidget(accnoLabel, 7, 0);
+    //mainLayout->addWidget(accno, 7, 1);
     mainLayout->addWidget(buttonBox, 7, 0, 1, 5);
+
+    //qDebug() << (acc+1);
 
     setLayout(mainLayout);
 
@@ -94,7 +99,7 @@ void DetailsDialog::verify()
 
     QMessageBox::StandardButton answer;
     answer = QMessageBox::warning(this, tr("Incomplete Form"),
-        tr("The form does not contain all the necessary information.\n"
+        tr("The form doedoes not exist!s not contain all the necessary information.\n"
            "Do you want to discard it?"),
         QMessageBox::Yes | QMessageBox::No);
 

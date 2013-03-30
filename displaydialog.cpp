@@ -8,6 +8,7 @@ DisplayDialog::DisplayDialog(const QString &title, const account_info *record, Q
     QDialog(parent),
     ui(new Ui::DisplayDialog)
 {
+
     ui->setupUi(this);
     setWindowTitle(title);
 

@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
 
     QMenu *fileMenu = new QMenu(tr("&File"), this);
@@ -61,14 +62,16 @@ void MainWindow::openDialog()
         strcpy(mobile, dialog.getMobile().toStdString().c_str());
         strcpy(email, dialog.getEmail().toStdString().c_str());
 
-        b.createAccount(/*count++, */fName, mName,lName, address,"123", mobile, email, 3000);
-
+        char *accno = b.createAccount(/*count++, */fName, mName,lName, address,/*"123",*/ mobile, email, 3000);
+        QMessageBox::warning(this, tr("Account no"), "Account number : " +tr( accno));
+        //qDebug() << accno;
     }
 }
 
 void MainWindow::searchAccount(){
-    account_info *found = NULL;
-    found = b.searchAccount(searchEdit->text().toInt());
+    char accno[50];
+    strcpy(accno, searchEdit->text().toStdString().c_str());
+    account_info *found = b.searchAccount(accno);
     if(found) {
         DisplayDialog dialog(tr("View/Delete/Update"), found, this);
         if(dialog.exec() == QDialog::Rejected) {

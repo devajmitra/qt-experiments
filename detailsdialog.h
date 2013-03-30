@@ -28,6 +28,7 @@ public slots:
 private:
     Ui::DetailsDialog *ui;
 
+    QLabel *accnoLabel;
     QLabel *fnameLabel;
     QLabel *mnameLabel;
     QLabel *lnameLabel;
@@ -35,6 +36,7 @@ private:
     QLabel *mobileLabel;
     QLabel *emailLabel;
 
+    QLabel *accno;
     QLineEdit *fnameEdit;
     QLineEdit *mnameEdit;
     QLineEdit *lnameEdit;

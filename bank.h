@@ -7,7 +7,7 @@ using namespace std;
 
 struct account_info {
     int key;
-    char fname[50], mname[50], lname[50], address[200], acc_no[20], mobile_no[10];
+    char fname[50], mname[50], lname[50], address[200], acc_no[20], mobile_no[11];
     char email[50];
     long balance;
     int rec_state;
@@ -28,7 +28,7 @@ class bank {
         void printToFile();
         account_info readFromFile();
 
-        void update(account_info *record,const char * fname, const char * mname, const char * lname, const char * address,
+        void updateAccount(account_info *record,const char * fname, const char * mname, const char * lname, const char * address,
                     const char * mobile_no, const char *email, long balance);
 
         ~bank();

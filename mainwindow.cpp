@@ -74,8 +74,22 @@ void MainWindow::searchAccount(){
     account_info *found = b.searchAccount(accno);
     if(found) {
         DisplayDialog dialog(tr("View/Delete/Update"), found, this);
-        if(dialog.exec() == QDialog::Rejected) {
+        if(dialog.exec() == QDialog::Rejected && dialog.deleteFlag() == 1) {
             b.deleteAccount(found);
+        }
+        else if(dialog.result() == QDialog::Accepted && dialog.updateFlag() == 1) {
+            char fName[50], mName[50], lName[50], address[200], mobile[10], email[50];
+
+            strcpy(fName, dialog.getfName().toStdString().c_str());
+            strcpy(mName, dialog.getmName().toStdString().c_str());
+            strcpy(lName, dialog.getlName().toStdString().c_str());
+            strcpy(address, dialog.getAddress().toStdString().c_str());
+            strcpy(mobile, dialog.getMobile().toStdString().c_str());
+            strcpy(email, dialog.getEmail().toStdString().c_str());
+
+            qDebug() << "Update";
+
+            b.updateAccount(found, fName, mName,lName, address, mobile, email, 3000);
         }
         //qDebug() << found->fname<<" "<<found->lname << endl;
     }

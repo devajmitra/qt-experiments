@@ -10,6 +10,10 @@ DisplayDialog::DisplayDialog(const QString &title, const account_info *record, Q
 {
 
     ui->setupUi(this);
+
+    deleteF = 0;
+    updateF = 0;
+
     setWindowTitle(title);
 
     fnameLabel = new QLabel(tr("First Name:"));
@@ -41,13 +45,14 @@ DisplayDialog::DisplayDialog(const QString &title, const account_info *record, Q
 
     connect(done, SIGNAL(clicked()), this, SLOT(accept()));
     connect(edit, SIGNAL(clicked()), this, SLOT(setEditable()));
-    connect(remove, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(remove, SIGNAL(clicked()), this, SLOT(deleteAccount()));
+    connect(update, SIGNAL(clicked()), this, SLOT(updateAccount()));
 
     buttonBox = new QDialogButtonBox(Qt::Vertical);
 
     buttonBox->addButton(edit, QDialogButtonBox::ActionRole);
     buttonBox->addButton(done, QDialogButtonBox::AcceptRole);
-    buttonBox->addButton(update, QDialogButtonBox::ActionRole);
+    buttonBox->addButton(update, QDialogButtonBox::AcceptRole);
     buttonBox->addButton(remove, QDialogButtonBox::ActionRole);
 
     QGridLayout *mainLayout = new QGridLayout;
@@ -75,6 +80,58 @@ void DisplayDialog :: setEditable() {
     mobileEdit->setDisabled(false);
     addressEdit->setDisabled(false);
     emailEdit->setDisabled(false);
+}
+
+void DisplayDialog::deleteAccount() {
+    deleteF = 1;
+    reject();
+}
+
+void DisplayDialog::updateAccount() {
+    if (!fnameEdit->text().isEmpty() && !mnameEdit->text().isEmpty() && !lnameEdit->text().isEmpty() &&
+            !addressEdit->toPlainText().isEmpty() && !mobileEdit->text().isEmpty() && !emailEdit->text().isEmpty() )
+    {
+        updateF = 1;
+        accept();
+    }
+    else
+        QMessageBox::warning(this, tr("Invalid input"), "Fields cannot be empty!");
+}
+
+QString DisplayDialog::getfName() const
+{
+    return fnameEdit->text();
+}
+QString DisplayDialog::getmName() const
+{
+    return mnameEdit->text();
+}
+QString DisplayDialog::getlName() const
+{
+    return lnameEdit->text();
+}
+
+QString DisplayDialog::getAddress() const
+{
+    return addressEdit->toPlainText();
+}
+
+QString DisplayDialog::getMobile() const
+{
+    return mobileEdit->text();
+}
+
+QString DisplayDialog::getEmail() const
+{
+    return emailEdit->text();
+}
+
+int DisplayDialog::deleteFlag() {
+    return deleteF;
+}
+
+int DisplayDialog::updateFlag() {
+    return updateF;
 }
 
 DisplayDialog::~DisplayDialog()

@@ -73,7 +73,7 @@ void bank :: deleteAccount(account_info *record) {
     out.write((char *) record, sizeof(account_info));
     out.close();
 }
-void bank :: update(account_info *record,const char * fname, const char * mname, const char * lname, const char * address,
+void bank :: updateAccount(account_info *record,const char * fname, const char * mname, const char * lname, const char * address,
             const char * mobile_no, const char *email, long balance)
 {
     account_info acc;
@@ -83,6 +83,7 @@ void bank :: update(account_info *record,const char * fname, const char * mname,
     strcpy(acc.address, address);
     strcpy(acc.mobile_no, mobile_no);
     strcpy(acc.email, email);
+    strcpy(acc.acc_no, record->acc_no);
     acc.balance = balance;
     acc.key =record->key;
     acc.rec_state = 1;
@@ -100,11 +101,6 @@ void bank :: printToFile() {
 }
 
 account_info bank :: readFromFile() {
-    /*
-    account_info accRead;
-    in.read ( (char *)&accRead, sizeof(account_info) );
-    return accRead;
-    */
 }
 
 bank :: ~bank() {

@@ -16,13 +16,28 @@ class DisplayDialog : public QDialog
 public:
 
     explicit DisplayDialog(const QString &title, const account_info *record, QWidget *parent = 0);
+
+    QString getfName() const;
+    QString getmName() const;
+    QString getlName() const;
+    QString getAddress() const;
+    QString getMobile() const;
+    QString getEmail() const;
+
+    int deleteFlag() ;
+    int updateFlag();
     ~DisplayDialog();
 
 private slots:
     void setEditable();
+    void deleteAccount();
+    void updateAccount();
     
 private:
     Ui::DisplayDialog *ui;
+
+    int deleteF;
+    int updateF;
 
     QLabel *fnameLabel;
     QLabel *mnameLabel;

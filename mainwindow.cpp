@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::openDialog()
 {
     DetailsDialog dialog(tr("Enter Customer Details"), this);
-
+    dialog.resize(640, 480);
     if (dialog.exec() == QDialog::Accepted) {
 
 
@@ -63,6 +63,7 @@ void MainWindow::openDialog()
         strcpy(email, dialog.getEmail().toStdString().c_str());
 
         char *accno = b.createAccount(/*count++, */fName, mName,lName, address,/*"123",*/ mobile, email, 3000);
+        qDebug() << accno;
         QMessageBox::warning(this, tr("Account no"), "Account number : " +tr( accno));
         //qDebug() << accno;
     }
@@ -74,6 +75,7 @@ void MainWindow::searchAccount(){
     account_info *found = b.searchAccount(accno);
     if(found) {
         DisplayDialog dialog(tr("View/Delete/Update"), found, this);
+        dialog.resize(640, 480);
         if(dialog.exec() == QDialog::Rejected && dialog.deleteFlag() == 1) {
             b.deleteAccount(found);
         }

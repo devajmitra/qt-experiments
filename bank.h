@@ -21,8 +21,8 @@ class bank {
         bank();
         bank(int key, char * fname, char * mname, char * lname, char * address, char * acc_no, char * mobile_no, long balance);
 
-        char * createAccount(/*const int key, */const char * fname, const char * mname, const char * lname, const char * address,
-                           /*const char * acc_no,*/ const char * mobile_no, const char *email, long balance);
+        char * createAccount(const char * fname, const char * mname, const char * lname, const char * address,
+                                 const char * mobile_no, const char *email, long balance);
         account_info * searchAccount(char * key);
         void deleteAccount(account_info *record);
         void printToFile();

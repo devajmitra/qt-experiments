@@ -9,7 +9,6 @@ DetailsDialog::DetailsDialog(const QString &title, QWidget *parent) :
 {
 
     ui->setupUi(this);
-    //accnoLabel = new QLabel(tr("Account number: "));
     fnameLabel = new QLabel(tr("First Name:"));
     addressLabel = new QLabel(tr("Address:"));
     addressLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
@@ -17,15 +16,18 @@ DetailsDialog::DetailsDialog(const QString &title, QWidget *parent) :
     lnameLabel = new QLabel(tr("Last Name:"));
     mobileLabel = new QLabel(tr("Mobile Number:"));
     emailLabel = new QLabel(tr("Email: "));
+    depositLabel = new QLabel(tr("Deposit: "));
 
-    //accno = new QLabel(new QString(acc));
     fnameEdit = new QLineEdit;
     mnameEdit = new QLineEdit;
     lnameEdit = new QLineEdit;
     mobileEdit = new QLineEdit;
     addressEdit = new QTextEdit;
     emailEdit = new QLineEdit;
+    depositEdit = new QLineEdit;
 
+    QIntValidator *depositValidator = new QIntValidator(0, 10000000);
+    depositEdit->setValidator(depositValidator);
     buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok
                                      | QDialogButtonBox::Cancel);
 
@@ -45,9 +47,9 @@ DetailsDialog::DetailsDialog(const QString &title, QWidget *parent) :
     mainLayout->addWidget(mobileEdit, 5, 1, 1, 2);
     mainLayout->addWidget(emailLabel, 6, 0);
     mainLayout->addWidget(emailEdit, 6, 1, 1, 4);
-    //mainLayout->addWidget(accnoLabel, 7, 0);
-    //mainLayout->addWidget(accno, 7, 1);
-    mainLayout->addWidget(buttonBox, 7, 0, 1, 5);
+    mainLayout->addWidget(depositLabel, 7, 0);
+    mainLayout->addWidget(depositEdit, 7, 1);
+    mainLayout->addWidget(buttonBox, 8, 0, 1, 5);
 
     //qDebug() << (acc+1);
 
@@ -84,6 +86,11 @@ QString DetailsDialog::getEmail() const
     return emailEdit->text();
 }
 
+QString DetailsDialog::getDeposit() const
+{
+    return depositEdit->text();
+}
+
 DetailsDialog::~DetailsDialog()
 {
     delete ui;
@@ -92,7 +99,7 @@ DetailsDialog::~DetailsDialog()
 void DetailsDialog::verify()
 {
     if (!fnameEdit->text().isEmpty() && !mnameEdit->text().isEmpty() && !lnameEdit->text().isEmpty() &&
-            !addressEdit->toPlainText().isEmpty() && !mobileEdit->text().isEmpty() && !emailEdit->text().isEmpty() ) {
+            !addressEdit->toPlainText().isEmpty() && !mobileEdit->text().isEmpty() && !emailEdit->text().isEmpty() && !depositEdit->text().isEmpty() ) {
         accept();
         return;
     }

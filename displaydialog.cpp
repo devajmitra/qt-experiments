@@ -23,6 +23,7 @@ DisplayDialog::DisplayDialog(const QString &title, const account_info *record, Q
     lnameLabel = new QLabel(tr("Last Name:"));
     mobileLabel = new QLabel(tr("Mobile Number:"));
     emailLabel = new QLabel(tr("Email: "));
+    depositLabel = new QLabel(tr("Balance: "));
 
     fnameEdit = new QLineEdit(record->fname);
     mnameEdit = new QLineEdit(record->mname);
@@ -30,6 +31,10 @@ DisplayDialog::DisplayDialog(const QString &title, const account_info *record, Q
     mobileEdit = new QLineEdit(record->mobile_no);
     addressEdit = new QTextEdit(record->address);
     emailEdit = new QLineEdit(record->email);
+    depositEdit = new QLineEdit(QString::number(record->balance));
+
+    QIntValidator *depositValidator = new QIntValidator(0, 10000000);
+    depositEdit->setValidator(depositValidator);
 
     fnameEdit->setDisabled(true);
     mnameEdit->setDisabled(true);
@@ -37,6 +42,9 @@ DisplayDialog::DisplayDialog(const QString &title, const account_info *record, Q
     mobileEdit->setDisabled(true);
     addressEdit->setDisabled(true);
     emailEdit->setDisabled(true);
+    depositEdit->setDisabled(true);
+
+    qDebug() << record->balance;
 
     QPushButton *done = new QPushButton(tr("Done"));
     QPushButton *edit = new QPushButton(tr("Edit"));
@@ -68,6 +76,8 @@ DisplayDialog::DisplayDialog(const QString &title, const account_info *record, Q
     mainLayout->addWidget(mobileEdit, 5, 1, 1, 2);
     mainLayout->addWidget(emailLabel, 6, 0);
     mainLayout->addWidget(emailEdit, 6, 1, 1, 3);
+    mainLayout->addWidget(depositLabel, 7, 0);
+    mainLayout->addWidget(depositEdit, 7, 1);
     mainLayout->addWidget(buttonBox, 0, 5);
 
     setLayout(mainLayout);
@@ -80,6 +90,7 @@ void DisplayDialog :: setEditable() {
     mobileEdit->setDisabled(false);
     addressEdit->setDisabled(false);
     emailEdit->setDisabled(false);
+    depositEdit->setDisabled(false);
 }
 
 void DisplayDialog::deleteAccount() {
@@ -124,6 +135,11 @@ QString DisplayDialog::getMobile() const
 QString DisplayDialog::getEmail() const
 {
     return emailEdit->text();
+}
+
+QString DisplayDialog::getDeposit() const
+{
+    return depositEdit->text();
 }
 
 int DisplayDialog::deleteFlag() {

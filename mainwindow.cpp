@@ -42,7 +42,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setWindowTitle(tr("Accounts Manager"));
 
-    //accCount = 0;
 }
 
 
@@ -54,6 +53,7 @@ void MainWindow::openDialog()
 
 
         char fName[50], mName[50], lName[50], address[200], mobile[10], email[50];
+        long balance;
 
         strcpy(fName, dialog.getfName().toStdString().c_str());
         strcpy(mName, dialog.getmName().toStdString().c_str());
@@ -62,7 +62,9 @@ void MainWindow::openDialog()
         strcpy(mobile, dialog.getMobile().toStdString().c_str());
         strcpy(email, dialog.getEmail().toStdString().c_str());
 
-        char *accno = b.createAccount(/*count++, */fName, mName,lName, address,/*"123",*/ mobile, email, 3000);
+        balance = dialog.getDeposit().toLong();
+
+        char *accno = b.createAccount(fName, mName,lName, address, mobile, email, balance);
         qDebug() << accno;
         QMessageBox::warning(this, tr("Account no"), "Account number : " +tr( accno));
         //qDebug() << accno;
@@ -81,6 +83,7 @@ void MainWindow::searchAccount(){
         }
         else if(dialog.result() == QDialog::Accepted && dialog.updateFlag() == 1) {
             char fName[50], mName[50], lName[50], address[200], mobile[10], email[50];
+            long balance;
 
             strcpy(fName, dialog.getfName().toStdString().c_str());
             strcpy(mName, dialog.getmName().toStdString().c_str());
@@ -88,10 +91,12 @@ void MainWindow::searchAccount(){
             strcpy(address, dialog.getAddress().toStdString().c_str());
             strcpy(mobile, dialog.getMobile().toStdString().c_str());
             strcpy(email, dialog.getEmail().toStdString().c_str());
+            balance = dialog.getDeposit().toLong();
 
-            qDebug() << "Update";
 
-            b.updateAccount(found, fName, mName,lName, address, mobile, email, 3000);
+            //qDebug() << "Update";
+
+            b.updateAccount(found, fName, mName,lName, address, mobile, email, balance);
         }
         //qDebug() << found->fname<<" "<<found->lname << endl;
     }

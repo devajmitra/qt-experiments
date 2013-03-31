@@ -23,6 +23,7 @@ public:
     QString getAddress() const;
     QString getMobile() const;
     QString getEmail() const;
+    QString getDeposit() const;
 
     int deleteFlag() ;
     int updateFlag();
@@ -45,6 +46,7 @@ private:
     QLabel *addressLabel;
     QLabel *mobileLabel;
     QLabel *emailLabel;
+    QLabel *depositLabel;
 
     QLineEdit *fnameEdit;
     QLineEdit *mnameEdit;
@@ -52,6 +54,7 @@ private:
     QLineEdit *mobileEdit;
     QLineEdit *emailEdit;
     QTextEdit *addressEdit;
+    QLineEdit *depositEdit;
 
     QDialogButtonBox *buttonBox;
 

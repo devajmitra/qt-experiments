@@ -20,6 +20,7 @@ public:
     QString getAddress() const;
     QString getMobile() const;
     QString getEmail() const;
+    QString getDeposit() const;
     ~DetailsDialog();
 
 public slots:
@@ -28,21 +29,21 @@ public slots:
 private:
     Ui::DetailsDialog *ui;
 
-    QLabel *accnoLabel;
     QLabel *fnameLabel;
     QLabel *mnameLabel;
     QLabel *lnameLabel;
     QLabel *addressLabel;
     QLabel *mobileLabel;
     QLabel *emailLabel;
+    QLabel *depositLabel;
 
-    QLabel *accno;
     QLineEdit *fnameEdit;
     QLineEdit *mnameEdit;
     QLineEdit *lnameEdit;
     QLineEdit *mobileEdit;
     QLineEdit *emailEdit;
     QTextEdit *addressEdit;
+    QLineEdit *depositEdit;
 
     QDialogButtonBox *buttonBox;
 };
